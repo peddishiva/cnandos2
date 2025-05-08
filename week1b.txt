@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char a[100], c[200]; // c needs to be larger to hold stuffed data
+    int i, k = 0;
+    
+    printf("Enter the data: ");
+    fgets(a, sizeof(a), stdin);
+    
+    // Remove newline character if present
+    size_t len = strlen(a);
+    if(a[len - 1] == '\n') {
+        a[len - 1] = '\0';
+    }
+
+    for(i = 0; a[i] != '\0'; i++) {
+        if ((a[i] == 'd' && a[i+1] == 'l' && a[i+2] == 'e') ||
+            (a[i] == 'E' && a[i+1] == 'S' && a[i+2] == 'C')) {
+            // Stuffing ESC before the sequence
+            c[k++] = 'E';
+            c[k++] = 'S';
+            c[k++] = 'C';
+        }
+        c[k++] = a[i];
+    }
+
+    c[k] = '\0'; // Null-terminate the final string
+
+    printf("DLESTX %s DLEETX\n", c);
+    
+    return 0;
+}
